@@ -122,6 +122,11 @@ const registry: ToolRegistration[] = [
           description:
             'Substring match on sender address (e.g. "alice@example.com", "@stripe.com").',
         },
+        participant: {
+          type: "string",
+          description:
+            'Substring match in From, To, Cc, or available Bcc (e.g. "alice@example.com").',
+        },
         subject: {
           type: "string",
           description: "Substring match on subject line.",
@@ -162,6 +167,7 @@ const registry: ToolRegistration[] = [
       }
 
       if (args.from) opts.from = args.from as string;
+      if (args.participant) opts.participant = args.participant as string;
       if (args.subject) opts.subject = args.subject as string;
       if (args.unread_only) opts.unreadOnly = true;
       if (args.has_attachment) opts.hasAttachment = true;

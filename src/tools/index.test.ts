@@ -983,10 +983,11 @@ describe("handleToolCall — find_emails", () => {
     expect(opts.before).toEqual(new Date("2026-02-20T00:00:00Z"));
   });
 
-  it("passes from, subject, unread_only, has_attachment, limit", async () => {
+  it("passes address and other filters to IMAP search", async () => {
     mockFindEmails.mockResolvedValue([]);
     await handleToolCall(mockImapClient, "find_emails", {
       from: "@stripe.com",
+      participant: "alice@example.com",
       subject: "invoice",
       unread_only: true,
       has_attachment: true,
@@ -995,6 +996,7 @@ describe("handleToolCall — find_emails", () => {
     });
     expect(mockFindEmails).toHaveBeenCalledWith(mockImapClient, {
       from: "@stripe.com",
+      participant: "alice@example.com",
       subject: "invoice",
       unreadOnly: true,
       hasAttachment: true,

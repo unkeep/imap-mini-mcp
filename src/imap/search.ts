@@ -68,6 +68,7 @@ export interface FindEmailsOptions {
   after?: Date;
   before?: Date;
   from?: string;
+  participant?: string;
   subject?: string;
   unreadOnly?: boolean;
   hasAttachment?: boolean;
@@ -106,6 +107,15 @@ export async function findEmails(
     }
     if (opts.from) {
       query.from = opts.from;
+      hasFilter = true;
+    }
+    if (opts.participant) {
+      query.or = [
+        { from: opts.participant },
+        { to: opts.participant },
+        { cc: opts.participant },
+        { bcc: opts.participant },
+      ];
       hasFilter = true;
     }
     if (opts.subject) {

@@ -571,6 +571,21 @@ describe("findEmails", () => {
     );
   });
 
+  it("searches all address fields for a participant while applying the subject filter", async () => {
+    const { imapClient, mockClient } = createMockImapClient({ search: [] });
+    const participant = "alice@example.com";
+    await findEmails(imapClient, { participant, subject: "Activation" });
+    expect(mockClient.search).toHaveBeenCalledWith({
+      or: [
+        { from: participant },
+        { to: participant },
+        { cc: participant },
+        { bcc: participant },
+      ],
+      subject: "Activation",
+    }, { uid: true });
+  });
+
   it("passes subject to IMAP search", async () => {
     const { imapClient, mockClient } = createMockImapClient({ search: [] });
     await findEmails(imapClient, { subject: "invoice" });

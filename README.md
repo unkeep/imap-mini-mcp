@@ -95,6 +95,7 @@ Search and filter emails. All parameters are optional — calling with no parame
 | `after` | string | — | Only emails after this time. Relative (`"30m"`, `"2h"`, `"7d"`) or ISO date (`"2026-02-20"`) |
 | `before` | string | — | Only emails before this time. Same formats as `after` |
 | `from` | string | — | Substring match on sender address (e.g. `"alice@example.com"`, `"@stripe.com"`) |
+| `participant` | string | — | Substring match in From, To, Cc, or available Bcc. Combines with other filters. |
 | `subject` | string | — | Substring match on subject line |
 | `unread_only` | boolean | `false` | Only return unread emails |
 | `has_attachment` | boolean | `false` | Only return emails with attachments |
